@@ -1,1 +1,1 @@
-from app.lib.util import ResourceMixin, Email
+from app.lib.util import ResourceMixin

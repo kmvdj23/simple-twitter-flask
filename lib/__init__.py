@@ -8,3 +8,4 @@ from lib.lib import (
     upload_file,
     ModelForm
     )
+from lib.wrappers import token_required

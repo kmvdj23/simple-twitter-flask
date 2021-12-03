@@ -1,18 +1,21 @@
 import os
 from flask_sqlalchemy import SQLAlchemy
 from flask import Flask
-from flask_login import LoginManager
+from flask_marshmallow import Marshmallow
+from flask_praetorian import Praetorian
+from flask_cors import CORS
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.urandom(24)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///../../database.db'
+app.config['JWT_ACCESS_LIFESPAN'] = {'hours': 24}
+app.config['JWT_REFRESH_LIFESPAN'] = {'days': 30}
+app.config['DEBUG'] = True
 
 db = SQLAlchemy(app)
-login_manager = LoginManager(app)
+guard = Praetorian()
+cors = CORS(app)
+ma = Marshmallow()
 
-
-@login_manager.user_loader
-def load_user(username):
-	from app.models import Account
-	return Account.query.get(username)
+guard.blacklist = list()
