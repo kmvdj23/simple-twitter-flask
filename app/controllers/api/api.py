@@ -1,10 +1,10 @@
 from flask import jsonify, request, Blueprint
 from flask_praetorian import auth_required, current_user
 from app.models import Account, Tweet, guard
-from flask_cors import cross_origin
+from flask_cors import CORS
 
 v1 = Blueprint('v1', __name__, url_prefix='/api/v1')
-
+cors = CORS(v1, supports_credentials=True, expose_headers=[ "Content-Type", "X-CSRFToken", 'content-type', 'x-csrftoken' ])
 
 # ====================== GET ====================================
 @v1.route('/account')
