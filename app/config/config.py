@@ -16,7 +16,7 @@ app.config['DEBUG'] = True
 
 db = SQLAlchemy(app)
 guard = Praetorian()
-cors = CORS(app)
+cors = CORS(app, supports_credentials=True, expose_headers=[ "Content-Type", "X-CSRFToken", 'content-type', 'x-csrftoken' ])
 ma = Marshmallow()
 
 guard.blacklist = list()

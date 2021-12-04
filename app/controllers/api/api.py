@@ -9,7 +9,6 @@ v1 = Blueprint('v1', __name__, url_prefix='/api/v1')
 # ====================== GET ====================================
 @v1.route('/account', methods=['GET'])
 @auth_required
-@cross_origin()
 def view_profile():
     account = Account.find(current_user().username)
     if account:
@@ -25,7 +24,6 @@ def view_profile():
 
 @v1.route('/tweets', methods=['GET'])
 @auth_required
-@cross_origin()
 def get_account_tweets():
 
     account = Account.find(current_user().username)
