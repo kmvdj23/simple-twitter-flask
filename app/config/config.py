@@ -4,7 +4,7 @@ from flask import Flask
 from flask_marshmallow import Marshmallow
 from flask_praetorian import Praetorian
 from flask_cors import CORS
-from flask_restplus import Api
+from flask_restx import Api
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.urandom(24)
