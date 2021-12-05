@@ -68,6 +68,10 @@ class Account(db.Model, UserMixin, ResourceMixin):
         """
         return cls.query.get(id)
 
+    @classmethod
+    def get_users(cls):
+        return Account.query.all()
+
 
     @classmethod
     def find(cls, identity):

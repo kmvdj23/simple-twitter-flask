@@ -24,7 +24,7 @@ def view_profile():
 
 @v1.route('/tweets')
 @auth_required
-def get_account_tweets():
+def view_tweets():
 
     account = Account.find(current_user().username)
     if account:
@@ -58,6 +58,34 @@ def view_account(username):
 
         return (jsonify(data), 200)
 
+
+@v1.route('/account/<username>/tweets')
+@auth_required
+def view_account_tweets(username):
+    account = Account.find(username)
+    if account:
+
+        tweets_list = list()
+
+        for tweet in account.tweets:
+            tweets_list.append(tweet.to_dict())
+
+        return (jsonify(tweets_list), 200)
+
+    else:
+        data = {
+            "message": "Account not found"
+        }
+
+        return (jsonify(data), 200)
+
+@v1.route('/users')
+@auth_required
+def get_users():
+    account_list = [ account.to_dict() for account in Account.get_users()]
+    return (jsonify(account_list), 200)
+
+
 # ==================== POST ===================================
 @v1.route('/refresh', methods=['POST'])
 def refresh():
@@ -73,7 +101,7 @@ def refresh():
     ret = {'access_token': new_token}
     return (jsonify(ret), 200)
 
-@v1.route('/update_password', methods=['POST'])
+@v1.route('/update_password', methods=['POST', 'PUT'])
 @auth_required
 def update_password():
     req = request.get_json(force=True)
@@ -145,7 +173,7 @@ def logout():
     return (jsonify(data), 200)
 
 
-@v1.route('/delete_tweet/<tweet_id>', methods=['POST'])
+@v1.route('/delete_tweet/<tweet_id>', methods=['DELETE'])
 @auth_required
 def delete_tweet(tweet_id):
 
