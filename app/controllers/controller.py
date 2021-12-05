@@ -1,4 +1,4 @@
-from flask_restplus import apidoc, Resource
+from flask_restx import apidoc, Resource
 from app.config import app, api
 from app.controllers.api import v1
 
