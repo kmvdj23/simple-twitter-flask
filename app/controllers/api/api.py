@@ -44,6 +44,20 @@ def get_account_tweets():
         return (jsonify(data), 200)
 
 
+@v1.route('/account/<username>')
+@auth_required
+def view_account(username):
+    account = Account.find(username)
+    if account:
+        return (jsonify(account.to_dict()), 200)
+
+    else:
+        data = {
+            "message": "Account not found"
+        }
+
+        return (jsonify(data), 200)
+
 # ==================== POST ===================================
 @v1.route('/refresh', methods=['POST'])
 def refresh():

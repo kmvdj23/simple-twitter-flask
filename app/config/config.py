@@ -4,6 +4,7 @@ from flask import Flask
 from flask_marshmallow import Marshmallow
 from flask_praetorian import Praetorian
 from flask_cors import CORS
+from flask_restplus import Api
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.urandom(24)
@@ -15,8 +16,9 @@ app.config['CORS_EXPOSE_HEADERS'] = [ "Content-Type", "X-CSRFToken", 'content-ty
 app.config['DEBUG'] = True
 
 db = SQLAlchemy(app)
+api = Api(app)
 guard = Praetorian()
-cors = CORS(app, supports_credentials=True, expose_headers=[ "Content-Type", "X-CSRFToken", 'content-type', 'x-csrftoken' ])
+cors = CORS(app, supports_credentials=True)
 ma = Marshmallow()
 
 guard.blacklist = list()
