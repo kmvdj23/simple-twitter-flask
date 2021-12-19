@@ -80,7 +80,6 @@ def view_account_tweets(username):
         return (jsonify(data), 200)
 
 @v1.route('/users')
-@auth_required
 def get_users():
     account_list = [ account.to_dict() for account in Account.get_users()]
     return (jsonify(account_list), 200)
