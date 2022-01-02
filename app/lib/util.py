@@ -4,8 +4,8 @@ from flask import url_for
 from lib.email import EmailServer
 
 class ResourceMixin(object):
-    create_date = db.Column(db.DateTime, default=datetime.now())
-    update_date = db.Column(db.DateTime, default=datetime.now())
+    create_date = db.Column(db.DateTime, default=datetime.now)
+    update_date = db.Column(db.DateTime, default=datetime.now)
 
     def save(self):
         db.session.add(self)
